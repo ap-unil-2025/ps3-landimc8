@@ -1,8 +1,8 @@
 # Problem Set 3: Git & Python Fundamentals
 
 ## Student Information
-Name: YOUR_NAME_HERE
-Date: DATE_HERE
+Name: Zildete Landim Crausaz
+Date: October 1, 2025
 
 ## Assignment Overview
 This assignment covers Git version control basics and Python fundamentals including variables, control flow, functions, and file I/O.
@@ -32,10 +32,10 @@ python bonus_password_generator.py  # if completed
 ```
 
 ## Submission Checklist
-- [ ] Problem 1: Git workflow completed with at least 4 commits
-- [ ] Problem 2: Temperature converter works correctly
-- [ ] Problem 3: Number analysis handles all requirements
-- [ ] Problem 4: File word counter produces correct output
+- [x] Problem 1: Git workflow completed with at least 4 commits
+- [x] Problem 2: Temperature converter works correctly
+- [x] Problem 3: Number analysis handles all requirements
+- [x] Problem 4: File word counter produces correct output
 - [ ] (Optional) Bonus password generator completed
-- [ ] All code is properly commented
+- [X] All code is properly commented
 - [ ] Repository pushed to GitHub
