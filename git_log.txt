@@ -1,0 +1,10 @@
+0d878ef Finalizing README: Updated checklist and student information.
+6680076 Final fix for NameError in Bonus Challenge and verified functionality.
+7e5bfe3 Completed Problem 4: File word counter and file creation verified.
+55a9b23 Finalizing Problem 3: Number analysis functions complete and verified.
+2921f00 Completed Problem 2: Implemented and passed temperature converter C and F
+4c441ae Final Submission: Completed Problems 2, 3, 4, Bonus Challenge, and updated README/Git Log.
+3b9302e Completed Problem 4: File word counter functions and created sample.txt
+1aa37cb Completed Problem 2: Implemented and passed temperature converter
+7bcb689 Add GitHub Classroom autograding configuration
+2dc2daa Initial commit
