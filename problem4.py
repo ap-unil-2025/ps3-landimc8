@@ -13,7 +13,8 @@ def create_sample_file(filename="sample.txt"):
     content = """Python is a powerful programming language.
 It is widely used in web development, data science, and automation.
 Python's simple syntax makes it great for beginners.
-Many companies use Python for their projects."""
+Many companies use Python for their projects.Python can be helpful for trading and/or analysis because it can easily calculate, graph, and visualise data.
+Instead of clicking and formatting in Excel, you may load and create any plot with just two lines of code."""
 
     with open(filename, 'w') as f:
         f.write(content)
@@ -21,86 +22,78 @@ Many companies use Python for their projects."""
 
 
 def count_words(filename):
-    """
-    Count total words in the file.
-
-    Args:
-        filename (str): Name of the file to analyze
-
-    Returns:
-        int: Total number of words
-    """
-    # TODO: Open file and count words
-    # Hint: Use split() to separate words
-    pass
+    """Count total words in the file."""
+    with open(filename, 'r') as f:
+        content = f.read()
+    
+    # Use split() to separate words by whitespace
+    words = content.split()
+    return len(words)
 
 
 def count_lines(filename):
-    """
-    Count total lines in the file.
-
-    Args:
-        filename (str): Name of the file to analyze
-
-    Returns:
-        int: Total number of lines
-    """
-    # TODO: Open file and count lines
-    pass
+    """Count total lines in the file."""
+    with open(filename, 'r') as f:
+        # readlines() returns a list where each element is a line
+        lines = f.readlines()
+    return len(lines)
 
 
 def count_characters(filename, include_spaces=True):
-    """
-    Count characters in the file.
+    """Count characters in the file."""
+    with open(filename, 'r') as f:
+        content = f.read()
 
-    Args:
-        filename (str): Name of the file to analyze
-        include_spaces (bool): Whether to include spaces in count
+    if not include_spaces:
+        # Remove all whitespace characters (spaces, newlines, tabs)
+        content = "".join(content.split()) 
 
-    Returns:
-        int: Total number of characters
-    """
-    # TODO: Open file and count characters
-    # If include_spaces is False, don't count spaces
-    pass
+    return len(content)
 
 
 def find_longest_word(filename):
-    """
-    Find and return the longest word in the file.
+    """Find and return the longest word in the file."""
+    import string
+    
+    with open(filename, 'r') as f:
+        content = f.read()
 
-    Args:
-        filename (str): Name of the file to analyze
+    # 1. Replace punctuation with a space or remove it
+    # This ensures words like "automation." are treated as "automation"
+    for char in string.punctuation:
+        content = content.replace(char, '')
 
-    Returns:
-        str: The longest word found
-    """
-    # TODO: Find the longest word
-    # Hint: You might need to remove punctuation
-    pass
+    words = content.split()
+    
+    if not words:
+        return "" # Handle empty file
+
+    # 2. Find the longest word using the max function and 'key=len'
+    longest_word = max(words, key=len)
+    
+    return longest_word
 
 
 def word_frequency(filename):
-    """
-    Return a dictionary of word frequencies.
-    Convert words to lowercase and remove punctuation.
-
-    Args:
-        filename (str): Name of the file to analyze
-
-    Returns:
-        dict: Dictionary with words as keys and frequencies as values
-    """
+    """Return a dictionary of word frequencies."""
     import string
-
     frequency = {}
+    
+    with open(filename, 'r') as f:
+        content = f.read()
 
-    # TODO: Open file
-    # TODO: Read all words
-    # TODO: Convert to lowercase
-    # TODO: Remove punctuation (use string.punctuation)
-    # TODO: Count frequency of each word
+    # 1. Prepare content: lowercase and remove punctuation
+    content = content.lower()
+    for char in string.punctuation:
+        content = content.replace(char, '')
 
+    words = content.split()
+    
+    # 2. Count frequency
+    for word in words:
+        if word: # Ensure no empty strings from multiple spaces
+            frequency[word] = frequency.get(word, 0) + 1
+            
     return frequency
 
 
@@ -154,3 +147,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+    
