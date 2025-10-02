@@ -14,11 +14,17 @@ def get_numbers_from_user():
     numbers = []
 
     while True:
-        # TODO: Get input from user
-        # TODO: Check if user typed 'done'
-        # TODO: Try to convert to float and add to list
-        # TODO: Handle invalid input gracefully
-        pass
+        user_input = input("Enter a number (or type 'done'): ")
+
+        if user_input.lower() == 'done':
+            break 
+
+        try:
+            number = float(user_input)
+            numbers.append(number)
+        
+        except ValueError:
+            print(f"'{user_input}' is not a valid number. Please try again.")
 
     return numbers
 
@@ -45,13 +51,27 @@ def analyze_numbers(numbers):
 
     analysis = {}
 
-    # TODO: Calculate count
-    # TODO: Calculate sum
-    # TODO: Calculate average
-    # TODO: Find minimum
-    # TODO: Find maximum
-    # TODO: Count even numbers (hint: use modulo operator)
-    # TODO: Count odd numbers
+    # Calculate basic statistics
+    analysis['count'] = len(numbers)
+    analysis['sum'] = sum(numbers)
+    analysis['average'] = analysis['sum'] / analysis['count']
+    analysis['minimum'] = min(numbers)
+    analysis['maximum'] = max(numbers)
+
+    # Count even/odd numbers (only for integers)
+    even_count = 0
+    odd_count = 0
+
+    for num in numbers:
+        # Check if the number is an exact integer
+        if num == int(num): 
+            if int(num) % 2 == 0:
+                even_count += 1
+            else:
+                odd_count += 1
+
+    analysis['even_count'] = even_count
+    analysis['odd_count'] = odd_count
 
     return analysis
 
@@ -59,23 +79,22 @@ def analyze_numbers(numbers):
 def display_analysis(analysis):
     """
     Display the analysis in a formatted way.
-
-    Args:
-        analysis (dict): Dictionary containing analysis results
     """
     if not analysis:
+        # This handles the case if no numbers were entered
         return
 
     print("\nAnalysis Results:")
     print("-" * 20)
-
-    # TODO: Display all analysis results in a nice format
-    # Example:
-    # Count: 5
-    # Sum: 25
-    # Average: 5.00
-    # etc.
-    pass
+    
+    # Display all analysis results in a nice format, rounded to 2 decimals
+    print(f"Count:    {analysis['count']}")
+    print(f"Sum:      {analysis['sum']:.2f}") 
+    print(f"Average:  {analysis['average']:.2f}") 
+    print(f"Minimum:  {analysis['minimum']:.2f}")
+    print(f"Maximum:  {analysis['maximum']:.2f}")
+    print(f"Even Count: {analysis['even_count']}")
+    print(f"Odd Count:  {analysis['odd_count']}")
 
 
 def main():
