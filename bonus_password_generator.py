@@ -5,43 +5,54 @@ Generate secure passwords with customizable options.
 
 import random
 import string
-
+# Note: Ensure these two import lines are at the very top of your file.
 
 def generate_password(length=12, use_uppercase=True, use_lowercase=True,
                      use_digits=True, use_special=True):
     """
     Generate a random password based on criteria.
-
-    Args:
-        length (int): Length of the password
-        use_uppercase (bool): Include uppercase letters
-        use_lowercase (bool): Include lowercase letters
-        use_digits (bool): Include digits
-        use_special (bool): Include special characters
-
-    Returns:
-        str: Generated password
     """
+    # Initialize variables
     characters = ""
+    guarantee_chars = []
+    
+    # 1. Build the character set and ensure minimum requirements are met
+    if use_lowercase:
+        guarantee_chars.append(random.choice(string.ascii_lowercase))
+        characters += string.ascii_lowercase
+        
+    if use_uppercase:
+        guarantee_chars.append(random.choice(string.ascii_uppercase))
+        characters += string.ascii_uppercase
 
-    # TODO: Build character set based on parameters
-    # if use_lowercase:
-    #     characters += string.ascii_lowercase
-    # etc.
+    if use_digits:
+        guarantee_chars.append(random.choice(string.digits))
+        characters += string.digits
+
+    if use_special:
+        guarantee_chars.append(random.choice(string.punctuation))
+        characters += string.punctuation
 
     if not characters:
         return "Error: No character types selected!"
 
-    password = []
+    # Initialize the list that will hold the password characters (Fixes NameError)
+    password_list = []
 
-    # TODO: Ensure at least one character from each selected type
-    # This prevents passwords that don't meet the criteria
+    # 2. Ensure at least one character from each selected type
+    password_list.extend(guarantee_chars)
 
-    # TODO: Fill the rest of the password randomly
+    # 3. Fill the rest of the password randomly
+    remaining_length = length - len(guarantee_chars)
+    
+    if remaining_length > 0:
+        # Use random.choices to pick remaining characters from the full set
+        password_list.extend(random.choices(characters, k=remaining_length))
 
-    # TODO: Shuffle the password list to randomize order
+    # 4. Shuffle the password list to randomize order
+    random.shuffle(password_list)
 
-    return ''.join(password)
+    return ''.join(password_list)
 
 
 def password_strength(password):
@@ -56,15 +67,29 @@ def password_strength(password):
     """
     score = 0
 
-    # TODO: Add points for different criteria
-    # - Length >= 8: +1 point
-    # - Length >= 12: +1 point
-    # - Contains lowercase: +1 point
-    # - Contains uppercase: +1 point
-    # - Contains digits: +1 point
+# 1. Length Criteria
+    if len(password) >= 8:
+        score += 1
+    if len(password) >= 12:
+        score += 1
 
+    # 2. Character Type Criteria
+    # Check for presence of character types using any() and sets
+    if any(c in string.ascii_lowercase for c in password):
+        score += 1 # Contains lowercase
+        
+    if any(c in string.ascii_uppercase for c in password):
+        score += 1 # Contains uppercase
+        
+    if any(c in string.digits for c in password):
+        score += 1 # Contains digits
+        
+    if any(c in string.punctuation for c in password):
+        score += 1 # Contains special characters
+    
+    # Maximum score is 6, so we limit the index to 5 for the 'Very Strong' rating
     strength = ["Very Weak", "Weak", "Fair", "Good", "Strong", "Very Strong"]
-    return strength[min(score, 5)]
+    return strength[min(score, 5)] 
 
 
 def main():
