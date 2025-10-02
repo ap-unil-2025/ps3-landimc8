@@ -13,8 +13,8 @@ def create_sample_file(filename="sample.txt"):
     content = """Python is a powerful programming language.
 It is widely used in web development, data science, and automation.
 Python's simple syntax makes it great for beginners.
-Many companies use Python for their projects.Python can be helpful for trading and/or analysis because it can easily calculate, graph, and visualise data.
-Instead of clicking and formatting in Excel, you may load and create any plot with just two lines of code."""
+Many companies use Python for their projects.
+Python can be helpful for trading and/or analysis because it can easily calculate, graph, and visualise data. Instead of clicking and formatting in Excel, you may load and create any plot with just two lines of code."""
 
     with open(filename, 'w') as f:
         f.write(content)
@@ -32,11 +32,25 @@ def count_words(filename):
 
 
 def count_lines(filename):
-    """Count total lines in the file."""
+    """
+    Count total lines in the file, only counting non-empty lines with content.
+    """
+    count = 0
+    
+    # Open the file
     with open(filename, 'r') as f:
-        # readlines() returns a list where each element is a line
+        # Read all lines into a list
         lines = f.readlines()
-    return len(lines)
+        
+        # Iterate through the lines list
+        for line in lines:
+            # Check if the line has any actual non-whitespace content.
+            # .strip() removes all whitespace (spaces, tabs, newlines).
+            if line.strip(): 
+                count += 1
+                
+    return count
+
 
 
 def count_characters(filename, include_spaces=True):
@@ -147,5 +161,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-    
